@@ -48,7 +48,7 @@ Resposta:
 ## Listar Solicitações
 
 - Endpoint: **/api/solicitacoes/**
-
+- Allowed method: GET
 
 Para listar todas as solicitações.
 

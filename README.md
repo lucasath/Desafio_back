@@ -1,4 +1,4 @@
-# Documentação a API
+# Documentação da API
 
 Documentação de uso da API.
 

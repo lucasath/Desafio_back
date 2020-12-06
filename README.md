@@ -8,11 +8,12 @@ Api criada para solicitação de um cartão de crédito e analise de crédito.
 
 - [**GET**](#listar): /api/solicitacoes/
 - [**POST**](#enviar): /api/solicitacoes/
-- [**DELETE**](#deletar): /api/solicitacoes/{id}/
+- [**DELETE**](#deletar): /api/solicitacoes/
 
-Onde `{id}` é o id da solicitação a ser apagada.
 
 ## Enviar uma Solicitação
+
+### enviar
 
 - Endpoint: **/api/solicitacoes/**
 - Allowed method: POST
@@ -47,6 +48,8 @@ Resposta:
 
 ## Listar Solicitações
 
+### listar
+
 - Endpoint: **/api/solicitacoes/**
 - Allowed method: GET
 
@@ -70,6 +73,8 @@ Resposta:
 *status_code*: 200
 
 ## Deletar Solicitações
+
+### deletar
 
 - Endpoint: **/api/solicitacoes/`{id}`**
 - Allowed method: DELETE

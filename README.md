@@ -4,6 +4,61 @@ Documentação de uso da API.
 
 Api criada para solicitação de um cartão de crédito e analise de crédito.
 
+## Como Usar
+
+Para subir o ambiente de desenvolvimento é necessario possuir:
+
+- Python3.6+
+- Django3
+- Virtualenv Ou Pipenv
+
+
+Primeiro é necessario preparar o ambiente do projeto
+
+Criando o ambiente da virtualenv
+
+```bash
+$ virtualenv --python=python3.8 venv
+```
+
+Ative a sua env ou pipenv
+
+```bash
+$ source venv/bin/activate
+```
+
+Instalando as dependencias do projeto
+
+```bash
+(venv)$ pip install -r requirements.txt
+```
+
+Agora é necessario adicionar variaveis de ambiente
+
+```bash
+(venv)$ export DEBUG="True"
+(venv)$ export SECRET_KEY="mysecretkey"
+```
+
+Rodando as migrates do django para preparar o seu banco local
+
+```bash
+(venv)$ python manage.py migrate
+```
+
+Para executar os testes
+```bash
+(venv)$ python manage.py test
+```
+
+Se estiver tudo certo agora é so rodar o projeto
+```bash
+(venv)$ python manage.py runserver
+```
+
+
+Pronto! agora o ambiente está instalado.
+
 ## ENDPOINTS
 
 - [**GET**](#Listar): /api/solicitacoes/
@@ -86,3 +141,4 @@ Deve se enviar uma request com o Metodo DELETE passando o id da solictitação n
 Resposta:
 
 *status_code*: 204
+

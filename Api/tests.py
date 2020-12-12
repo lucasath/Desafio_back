@@ -1,8 +1,51 @@
 from django.test import TestCase, Client
-from Api.models import *
-from Api.utils import *
-from Api.serializers import *
+from Api.models import Endereco,Pessoa
+from Api.utils import get_score, Credito
+from Api.serializers import SolicitacaoSerializer
 import json
+
+
+class RegradeNegocioTests(TestCase):
+    def setUp(self):
+        self.renda = 1000
+
+    def test_verificar_reprovado(self):
+        valor_esperado = 0
+        score = 250
+        credito = Credito(score, self.renda).calcular_limite()
+
+        self.assertEqual(credito, valor_esperado)
+
+    def test_verificar_mil(self):
+        valor_esperado = 1000
+        score = 350
+        credito = Credito(score, self.renda).calcular_limite()
+
+        self.assertEqual(credito, valor_esperado)
+
+
+    def test_verificar_cinquenta_porcento_da_renda_ou_renda(self):
+        valor_esperado = 1000
+        score = 650
+        credito = Credito(score, self.renda).calcular_limite()
+
+        self.assertEqual(credito, valor_esperado)
+
+
+    def test_verificar_duzentos_porcento_da_renda(self):
+        valor_esperado = 2000
+        score = 850
+        credito = Credito(score, self.renda).calcular_limite()
+
+        self.assertEqual(credito, valor_esperado)
+
+    def test_verificar_sem_limites(self):
+        valor_esperado = 1000000
+        score = 980
+        credito = Credito(score, self.renda).calcular_limite()
+
+        self.assertEqual(credito, valor_esperado)
+
 
 # Create your tests here.
 class PessoaModelsTests(TestCase):

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from Api.models import *
-from Api.serializers import *
+from Api.models import Pessoa
+from Api.serializers import SolicitacaoSerializer
 
 
 # Create your views here.

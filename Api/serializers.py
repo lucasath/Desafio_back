@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from Api.models import *
-from Api.utils import *
+from Api.models import Endereco, Pessoa, Solicitacao
+from Api.utils import Credito, get_score
 
 class EnderecoSerializer(serializers.ModelSerializer):
 

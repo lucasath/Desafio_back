@@ -1,28 +1,5 @@
 import random
 
-def status_credito(score, renda):
-
-    if score in range(1, 300):
-        status = 0
-
-    elif score in range(300, 600):
-        status = 1000
-    
-    elif score in range(600, 800):
-        if renda*0.5 < 1000:
-            status = 1000
-        else:
-            status = renda*0.5
-
-    elif score in range(800, 951):
-        status = renda*2
-
-    else:
-        status = 1000000
-
-    return status
-
-
 class Credito:
 
 
@@ -42,9 +19,9 @@ class Credito:
         for _range, callback in self.REGRA_LIMITE.items():
             if self.score in _range:
                 return callback()
-        return reprovado()
+        return self._reprovado()
 
-    
+
     def _reprovado(self):
         return 0
 

@@ -85,6 +85,7 @@ Exemplo:
 {
 	"nome":"joao",
 	"renda": "2500",
+	"cpf": "46635420509",
 	"endereco":{
 		"pais":"Brasil",
 		"estado":"PI",

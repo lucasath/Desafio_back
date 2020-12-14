@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from Api.models import Endereco,Pessoa
+from Api.models import Endereco,Pessoa, Solicitacao
 from Api.utils import get_score, Credito
 from Api.serializers import SolicitacaoSerializer
 import json
@@ -63,22 +63,26 @@ class PessoaModelsTests(TestCase):
         self.renda = 1050
         self.credito = Credito(self.score, self.renda).calcular_limite()
 
-        self.pessoa = Pessoa.objects.create(nome="joao",
-        renda= self.renda,endereco=self.endereco,score=self.score,credito=self.credito
+        self.pessoa = Pessoa.objects.create(nome="joao",cpf="46635420509",
+        endereco=self.endereco
         )
+
+        self.solicitacao = Solicitacao.objects.create(pessoa=self.pessoa,renda= self.renda, score=self.score, credito=self.credito)
 
     def test_verificar_estado(self):
         query = Pessoa.objects.get(nome = self.pessoa.nome)
+        query_solicitacao = Solicitacao.objects.get(pessoa=query)
 
         self.assertEqual(query.nome, self.pessoa.nome)
-        self.assertEqual(query.renda, self.renda)
+        self.assertEqual(query_solicitacao.renda, self.renda)
         self.assertEqual(query.endereco.estado, self.endereco.estado)
 
     def test_verificar_score_e_credito(self):
         query = Pessoa.objects.get(nome = self.pessoa.nome)
+        query_solicitacao = Solicitacao.objects.get(pessoa=query)
 
-        self.assertIsNotNone(query.credito)
-        self.assertIsNotNone(query.score)
+        self.assertIsNotNone(query_solicitacao.credito)
+        self.assertIsNotNone(query_solicitacao.score)
 
 
 class EndPointTest(TestCase):
@@ -97,13 +101,15 @@ class EndPointTest(TestCase):
         self.renda = 1050
         self.credito = Credito(self.score, self.renda).calcular_limite()
 
-        self.pessoa = Pessoa.objects.create(nome="joao",
-        renda= self.renda,endereco=self.endereco,score=self.score,credito=self.credito
+        self.pessoa = Pessoa.objects.create(nome="joao",cpf="46635420509",endereco=self.endereco
         )
+
+        self.solicitacao = Solicitacao.objects.create(pessoa=self.pessoa,renda= self.renda, score=self.score, credito=self.credito)
 
         self.data_json = {
             "nome":"pedro",
             "renda": 1050,
+            "cpf": "46635420509",
             "endereco":{
             "pais":"Brasil",
             "estado":"PI",

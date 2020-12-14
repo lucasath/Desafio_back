@@ -14,16 +14,16 @@ class Endereco(models.Model):
 
 class Pessoa(models.Model):
     nome = models.CharField(max_length=250)
-    renda = models.FloatField()
-    score = models.IntegerField()
-    credito = models.FloatField()
+    cpf = models.CharField(max_length=11, unique=True)
     endereco = models.ForeignKey('Endereco', models.CASCADE)
 
 
 class Solicitacao(models.Model):
-    pessoa = models.ForeignKey('Pessoa', models.CASCADE)
+    pessoa = models.ForeignKey('Pessoa', models.CASCADE, related_name='solicitacoes')
     data = models.DateField(auto_now=True)
-    
+    renda = models.FloatField()
+    score = models.IntegerField()
+    credito = models.FloatField()
     class Meta:
         verbose_name_plural = 'Solicitações'
         

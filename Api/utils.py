@@ -70,6 +70,11 @@ class Cpf:
     def is_valid(self):
 
         self.value = list(map(int, self.value))
+        
+        valor_repetido = self._valida_se_repetido()
+
+        if valor_repetido:
+            return False
 
         primeiro_digito = self._valida_primeiro()
         segundo_digito = self._valida_segundo()
@@ -80,9 +85,10 @@ class Cpf:
 
         soma = 0
         for index in range(len(peso)):
-            soma += self.value[index] * peso[index] 
+            soma += self.value[index] * peso[index]
 
         resto = soma % 11
+
         if resto < 2:
             return 0
 
@@ -90,13 +96,17 @@ class Cpf:
 
     def _valida_primeiro(self):
 
-        valor_esperado = self._calcula_digito(self._pesos['primeiro']) % 11
+        valor_esperado = self._calcula_digito(self._pesos['primeiro'])
 
         return self.value[-2] == valor_esperado
 
 
     def _valida_segundo(self):
 
-        valor_esperado = self._calcula_digito(self._pesos['segundo']) % 11
+        valor_esperado = self._calcula_digito(self._pesos['segundo'])
 
         return self.value[-1] == valor_esperado
+
+    def _valida_se_repetido(self):
+        
+        return len(set(self.value)) == 1

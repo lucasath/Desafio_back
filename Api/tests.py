@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from Api.models import Endereco,Pessoa, Solicitacao
-from Api.utils import get_score, Credito
+from Api.utils import get_score, Credito, Cpf
 from Api.serializers import SolicitacaoSerializer
 import json
 
@@ -49,6 +49,8 @@ class RegradeNegocioTests(TestCase):
 
 # Create your tests here.
 class PessoaModelsTests(TestCase):
+
+
     def setUp(self):
         self.endereco = Endereco.objects.create(
 		pais="Brasil",
@@ -149,7 +151,23 @@ class EndPointTest(TestCase):
         response = self.client.delete('{}{}/'.format(self.endpoint, query.id))
         self.assertEqual(response.status_code, 204)
 
+class ValidatorTest(TestCase):
 
+
+    def test_validate_cpf(self):
+
+        cpf_valido = "46635420509"
+
+        self.assertTrue(Cpf(cpf_valido).is_valid())
+
+    def test_validate_cpf_invalido(self):
+
+        cpf_invalido = "16648822332"
+
+        self.assertFalse(Cpf(cpf_invalido).is_valid())
+
+    def test_validate_cpf_valor_repetido(self):
         
-    
+        cpf_valor_repetido = "11111111111"
 
+        self.assertFalse(Cpf(cpf_valor_repetido).is_valid())
